@@ -3,7 +3,7 @@
 <head>
   <title>Crystal game</title>
   <link rel="stylesheet" type="text/css" href="assets/css/style.css">
-  <link rel="stylesheet" type="text/css" href="assets/css">
+  <!-- <link href="assets/css/bootstrap.css" rel="stylesheet" media="screen"> -->
   <link rel="stylesheet" type="text/css" href="assets/css/padding_margin.css">
   <link rel="stylesheet" type="text/css" href="assets/javascript">
   <style type="text/css">
@@ -21,10 +21,12 @@
 <!-- Container Start -->
     <div class="container">
 
+      <div class="row">
+
       <!-- Header Start -->
-      <div class=" rounded white height-100 margin-bottom-20 centeralign padding-bottom-50">
-        <h1><strong>Crystals Collector</strong></h1>
-          <div class="text-center">
+        <div class="rounded white height-100 margin-bottom-20 centeralign padding-bottom-50">
+           <h1><strong>Crystals Collector</strong></h1>
+            <div class="text-center">
             <button class="btn btn-warning btn-xs themeButton rounded"><span class="glyphicon glyphicon-music"></span>Play Song</button>       
             <button class="btn btn-default btn-xs pauseButton rounded"><span class="glyphicon glyphicon-pause"></span>Pause Song</button>  
           </div>
@@ -33,11 +35,13 @@
       <!-- Header End -->
 
       <!-- Content Start -->
+
       <div class="rounded white content margin-bottom-20 centeralign padding-top-40 padding-bottom-40">
-          <h2>Select a crystal and match up the number to win.</h2>
+          <h2>Each crystal is given a value.<br>Select a crystal and match the random number to win.</h2>
 
 
       <!-- Number Details Start -->
+
       <div class="rounded white content margin-bottom-20 centeralign padding-top-40 padding-bottom-40">
           <h3>Random Number:</h3>
 
@@ -47,6 +51,7 @@
           <h3>Your Number:</h3>
 
       <p><span id="yourNumber"></span></p>
+
 
       <div class="rounded white content centeralign padding-top-40">
           <h3>Wins:</h3>
