@@ -142,14 +142,16 @@
           wins++;
           $("#wins").text(wins)
           alert('You won!!!!');
+          $('#yourNumber').trigger("reset");
           gemGame();
-          computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
+    
         }
 
         else if( counter > numberToGuess){
           losses++;
           $("#losses").text(losses)
           alert('You lost!')
+          $('#yourNumber').trigger("reset");
           gemGame();
         }
       });
