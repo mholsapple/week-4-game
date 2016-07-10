@@ -1,80 +1,163 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>simple crystal game</title>
+  <title>Crystal game</title>
+  <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+  <link rel="stylesheet" type="text/css" href="assets/css">
+  <link rel="stylesheet" type="text/css" href="assets/css/padding_margin.css">
+  <link rel="stylesheet" type="text/css" href="assets/javascript">
   <style type="text/css">
-  	/*
-  		we threw in some styling to make the picture fit on the page better
-	*/
+
+  	
     .crystalImage {
-      width: 300px;
-      height: 300px;
+      width: 200px;
+      height: 200px;
     }
   </style>
+
 </head>
-<body>
+<body background="assets/images/background.jpg">
 
-<p><span id="number"></span></p>
+<!-- Container Start -->
+    <div class="container">
 
-<p><span id="yourNumber"></span></p>
+      <!-- Header Start -->
+      <div class=" rounded white height-100 margin-bottom-20 centeralign padding-bottom-50">
+        <h1><strong>Crystals Collector</strong></h1>
+          <div class="text-center">
+            <button class="btn btn-warning btn-xs themeButton rounded"><span class="glyphicon glyphicon-music"></span>Play Song</button>       
+            <button class="btn btn-default btn-xs pauseButton rounded"><span class="glyphicon glyphicon-pause"></span>Pause Song</button>  
+          </div>
+        
+      </div>
+      <!-- Header End -->
+
+      <!-- Content Start -->
+      <div class="rounded white content margin-bottom-20 centeralign padding-top-40 padding-bottom-40">
+          <h2>Select a crystal and match up the number to win.</h2>
+
+
+      <!-- Number Details Start -->
+      <div class="rounded white content margin-bottom-20 centeralign padding-top-40 padding-bottom-40">
+          <h3>Random Number:</h3>
+
+      <p><span id="number"></span></p>
+
+      <div class="rounded white content centeralign padding-top-40">
+          <h3>Your Number:</h3>
+
+      <p><span id="yourNumber"></span></p>
+
+      <div class="rounded white content centeralign padding-top-40">
+          <h3>Wins:</h3>
+
+      <p><span id="wins"></span></p>
+
+      <div class="rounded white content centeralign padding-top-40">
+          <h3>Losses:</h3>
+
+      <p><span id="losses"></span></p>
+    <!-- Container End -->
 
 <div id="crystals">
 </div>
 
-<!-- we added jQuery -->
+<!-- <! jQuery -->
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
 <script type="text/javascript">
   $( document ).ready(function() {
+    var wins = 0;
 
-    var numberToGuess = 53;
+    var losses = 0;
 
-    var counter = 0;
+    function gemGame () {
 
-    var numbers = [10, 5, 3, 7];
+      var numberToGuess = "";
 
-    function shuffle(a) {
-        var j, x, i;
-        for (i = a.length; i; i--) {
-            j = Math.floor(Math.random() * i);
-            x = a[i - 1];
-            a[i - 1] = a[j];
-            a[j] = x;
-        }
-    }   
+      var computerChoices = [19, 35, 120, 54, 43, 26, 79, 23]
 
-    shuffle(numbers);
-    console.log(numbers);
+      var numberToGuess =  computerChoices[Math.floor(Math.random() * computerChoices.length)];
 
-    $('#number').text(numberToGuess);
+      var counter = 0;
 
-    for (var i=0; i< numbers.length; i++){
+        $("#yourNumber").empty
+        $("#crystals").empty();
+      var numbers = [10, 5, 3, 7];
 
-      var imageCrystal = $('<img>');
+      var gemsArray = ["assets/images/green.png", "assets/images/purple.png", "assets/images/yellow.png", "assets/images/red.png"];
 
-      imageCrystal.attr('data-num', numbers[i]);
+      var gameOver = false;
 
-      imageCrystal.attr('src', 'http://cdn.playbuzz.com/cdn/35910209-2844-45c0-b099-f4d82878d54f/00261fda-4062-4096-81fd-8cf96b9034e8.jpg');
-
-      imageCrystal.attr('alt', 'crystals');
-
-      imageCrystal.addClass('crystalImage');
-
-      $('#crystals').append(imageCrystal);
-    }
-
-    $('.crystalImage').on('click', function(){
-      counter = counter + parseInt($(this).data('num'));
-
-      $('#yourNumber').text(counter);
-
-      if (counter == numberToGuess){
-        alert('You won!!!!');
-      }else if( counter > numberToGuess){
-        alert('You lost!');
+      function shuffle(a) {
+          var j, x, i;
+          for (i = a.length; i; i--) {
+              j = Math.floor(Math.random() * i);
+              x = a[i - 1];
+              a[i - 1] = a[j];
+              a[j] = x;
+          }
       }
-    });
 
+      shuffle(numbers);
+      console.log(numbers);
+
+
+      // Gets Link for Theme Song
+            var audioElement = document.createElement('audio');
+            audioElement.setAttribute('src', 'assets/music.mp3');
+            audioElement.play();
+      // Buttons to control the on click
+        $(".themeButton").on("click", function(){
+              audioElement.play();
+        });
+
+        $(".pauseButton").on("click", function(){
+              audioElement.pause();
+        });
+
+      $('#number').text(numberToGuess);
+
+      for (var i=0; i< numbers.length; i++){
+
+        var imageCrystal = $('<img>');
+
+        imageCrystal.attr('data-num', numbers[i]);
+
+        imageCrystal.attr('src', gemsArray[i]);
+
+        imageCrystal.attr('alt', 'crystals');
+
+        imageCrystal.addClass('crystalImage');
+
+        $('#crystals').append(imageCrystal);
+      }
+
+      $('.crystalImage').on('click', function(){
+        counter = counter + parseInt($(this).data('num'));
+
+        $('#yourNumber').text(counter);
+
+     
+        if (counter == numberToGuess){
+          wins++;
+          $("#wins").text(wins)
+          alert('You won!!!!');
+          gemGame();
+          computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
+        }
+
+        else if( counter > numberToGuess){
+          losses++;
+          $("#losses").text(losses)
+          alert('You lost!')
+          gemGame();
+        }
+      });
+
+    };
+      gemGame();
   });
-</script>
+
+</script> 
 </body>
 </html>
