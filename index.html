@@ -37,7 +37,7 @@
       <!-- Content Start -->
 
       <div class="rounded white content margin-bottom-20 centeralign padding-top-40 padding-bottom-40">
-          <h2>Each crystal is given a value.<br>Select a crystal and match the random number to win.</h2>
+          <h2>Each crystal is given a hidden value.<br>Select a crystal and match the random number to win.</h2>
 
 
       <!-- Number Details Start -->
@@ -79,32 +79,43 @@
 
       var numberToGuess = "";
 
-      var computerChoices = [19, 35, 120, 54, 43, 26, 79, 23]
+      //var computerChoices = [19, 35, 120, 54, 43, 26, 79, 23]
+      var computerChoices = Math.floor(Math.random() * (120-19+1)) + 19;
+        console.log(computerChoices);
 
-      var numberToGuess =  computerChoices[Math.floor(Math.random() * computerChoices.length)];
+     // var numberToGuess =  computerChoices[Math.floor(Math.random() * computerChoices.length)];
+     var numberToGuess = computerChoices
+
+     var numbers = Math.floor(Math.random() * 12) + 1;
+    //   console.log(numbers);
 
       var counter = 0;
 
-        $("#yourNumber").empty
+        $("#yourNumber").html(counter);
         $("#crystals").empty();
-      var numbers = [10, 5, 3, 7];
+     //var numbers = [10, 5, 3, 7];
 
       var gemsArray = ["assets/images/green.png", "assets/images/purple.png", "assets/images/yellow.png", "assets/images/red.png"];
 
       var gameOver = false;
 
+
+      // function shuffle(a) {
+      //     var j, x, i;
+      //     for (i = a.length; i; i--) {
+      //         j = Math.floor(Math.random() * i);
+      //         x = a[i - 1];
+      //         a[i - 1] = a[j];
+      //         a[j] = x;
+      //     }
+      // }
       function shuffle(a) {
-          var j, x, i;
-          for (i = a.length; i; i--) {
-              j = Math.floor(Math.random() * i);
-              x = a[i - 1];
-              a[i - 1] = a[j];
-              a[j] = x;
-          }
+       var numbers = Math.floor(Math.random() * 12) + 1;
+       return numbers;
       }
 
-      shuffle(numbers);
-      console.log(numbers);
+      // shuffle(numbers);
+      // console.log(numbers);
 
 
       // Gets Link for Theme Song
@@ -122,11 +133,13 @@
 
       $('#number').text(numberToGuess);
 
-      for (var i=0; i< numbers.length; i++){
+      for (var i=0; i< 4; i++){
 
         var imageCrystal = $('<img>');
 
-        imageCrystal.attr('data-num', numbers[i]);
+        imageCrystal.attr('data-num', numbers);
+        numbers = shuffle(numbers);
+        console.log(numbers)
 
         imageCrystal.attr('src', gemsArray[i]);
 
@@ -148,6 +161,7 @@
           $("#wins").text(wins)
           alert('You won!!!!');
           $('#yourNumber').trigger("reset");
+         // counter = 0;
           gemGame();
     
         }
@@ -157,6 +171,7 @@
           $("#losses").text(losses)
           alert('You lost!')
           $('#yourNumber').trigger("reset");
+          //counter = 0;
           gemGame();
         }
       });
